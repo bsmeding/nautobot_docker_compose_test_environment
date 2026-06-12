@@ -1,0 +1,9 @@
+# Codespaces override: GitHub's port proxy terminates TLS and forwards HTTP.
+# Keep secure cookie/redirect settings disabled to avoid redirect loops.
+services:
+  nautobot:
+    environment:
+      - NAUTOBOT_SECURE_SSL_REDIRECT=False
+      - NAUTOBOT_SESSION_COOKIE_SECURE=False
+      - NAUTOBOT_CSRF_COOKIE_SECURE=False
+      - NAUTOBOT_SECURE_HSTS_SECONDS=0
