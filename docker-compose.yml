@@ -36,6 +36,10 @@ services:
       - NAUTOBOT_SESSION_COOKIE_SECURE=${NAUTOBOT_SESSION_COOKIE_SECURE}
       - NAUTOBOT_CSRF_COOKIE_SECURE=${NAUTOBOT_CSRF_COOKIE_SECURE}
       - NAUTOBOT_JOBS_ROOT=/opt/nautobot/jobs
+      # UniFi job credentials (backing env-var Secrets)
+      - UNIFI_DR_BART_API_KEY=${UNIFI_DR_BART_API_KEY}
+      - UNIFI_DR_BART_USER=${UNIFI_DR_BART_USER}
+      - UNIFI_DR_BART_PASSWORD=${UNIFI_DR_BART_PASSWORD}
     volumes:
       - ./config/nautobot_config.py:/opt/nautobot/nautobot_config.py
       - ./jobs:/opt/nautobot/jobs
@@ -118,6 +122,8 @@ services:
     volumes:
       - ./config/nautobot_config.py:/opt/nautobot/nautobot_config.py
       - ./jobs:/opt/nautobot/jobs
+      # Local dev: live-mount the UniFi jobs repo as a JOBS_ROOT package
+      - ../../NAUTOBOT/nautobot_jobs_unifi/jobs:/opt/nautobot/jobs/unifi
     environment:
       - NAUTOBOT_DB_HOST=${CONTAINER_SUFFIX}-postgres
       - NAUTOBOT_DB_PORT=${NAUTOBOT_DB_PORT}
@@ -129,6 +135,10 @@ services:
       - NAUTOBOT_CELERY_BROKER_URL=redis://${CONTAINER_SUFFIX}-redis:${NAUTOBOT_REDIS_PORT}/0
       - NAUTOBOT_CONFIG=/opt/nautobot/nautobot_config.py
       - NAUTOBOT_JOBS_ROOT=/opt/nautobot/jobs
+      # UniFi job credentials (backing env-var Secrets)
+      - UNIFI_DR_BART_API_KEY=${UNIFI_DR_BART_API_KEY}
+      - UNIFI_DR_BART_USER=${UNIFI_DR_BART_USER}
+      - UNIFI_DR_BART_PASSWORD=${UNIFI_DR_BART_PASSWORD}
 
 
 volumes:
